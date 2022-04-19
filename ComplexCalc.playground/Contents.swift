@@ -26,9 +26,223 @@ print("Welcome back to the UW Calculator")
 //: Remember, don't change any of the pre-existing tests!
 //:
 class Calculator {
+    func add(lhs a: Int, rhs b: Int) -> Int {
+        return a + b
+    }
     
+    func add(lhs a: Double, rhs b: Double) -> Double {
+        return a + b
+    }
+    
+    func add(lhs a: (Int, Int), rhs b: (Int, Int)) -> (Int, Int) {
+        return (a.0 + b.0, a.1 + b.1)
+    }
+    
+    func add(lhs a: (Int, Int, Int), rhs b: (Int, Int, Int)) -> (Int, Int, Int) {
+        return (a.0 + b.0, a.1 + b.1, a.2 + b.2)
+    }
+    
+    func add(lhs a: (Int, Int, Int, Int), rhs b: (Int, Int, Int, Int)) -> (Int, Int, Int, Int) {
+        return (a.0 + b.0, a.1 + b.1, a.2 + b.2, a.3 + b.3)
+    }
+    
+    func add(lhs a: Tuple, rhs b: Tuple) -> Tuple {
+        var result = Tuple(length: a.length)
+        for i in 0...a.length - 1 {
+            result.data[i] = a.data[i] + b.data[i]
+        }
+        
+        return result
+    }
+    
+    func add(lhs a: [String: Int], rhs b: [String: Int]) -> [String: Int] {
+        var res = a.merging(b) { first, _ in first}
+        
+        for key in b.keys {
+            res[key]! += b[key]!
+        }
+        
+        return res
+    }
+    
+    func add(_ nums: [Int]) -> Int {
+        var res: Int = 0
+        for num in nums {
+            res += num
+        }
+        return res
+    }
+    
+    func add(_ nums: [Double]) -> Double {
+        var res: Double = 0
+        for num in nums {
+            res += num
+        }
+        return res
+    }
+    
+    func subtract(lhs a: Int, rhs b: Int) -> Int {
+        return a - b
+    }
+    
+    func subtract(lhs a: Double, rhs b: Double) -> Double {
+        return a - b
+    }
+    
+    func subtract(_ nums: [Int]) -> Int {
+        var res: Int = nums[0]
+        for i in 1...nums.count - 1 {
+            res -= nums[i]
+        }
+        return res
+    }
+    
+    func subtract(_ nums: [Double]) -> Double {
+        var res: Double = nums[0]
+        for i in 1...nums.count - 1 {
+            res -= nums[i]
+        }
+        return res
+    }
+    
+    func subtract(lhs a: [String: Int], rhs b: [String: Int]) -> [String: Int] {
+        var res = a.merging(b) { first, _ in first}
+        
+        for key in b.keys {
+            res[key]! -= b[key]!
+        }
+        
+        return res
+    }
+    
+    func subtract(lhs a: (Int, Int), rhs b: (Int, Int)) -> (Int, Int) {
+        return (a.0 - b.0, a.1 - b.1)
+    }
+    
+    func subtract(lhs a: (Int, Int, Int), rhs b: (Int, Int, Int)) -> (Int, Int, Int) {
+        return (a.0 - b.0, a.1 - b.1, a.2 - b.2)
+    }
+    
+    func subtract(lhs a: (Int, Int, Int, Int), rhs b: (Int, Int, Int, Int)) -> (Int, Int, Int, Int) {
+        return (a.0 - b.0, a.1 - b.1, a.2 - b.2, a.3 - b.3)
+    }
+    
+    func subtract(lhs a: Tuple, rhs b: Tuple) -> Tuple {
+        var result = Tuple(length: a.length)
+        for i in 0...a.length - 1 {
+            result.data[i] = a.data[i] - b.data[i]
+        }
+        
+        return result
+    }
+    
+    func multiply(lhs a: Int, rhs b: Int) -> Int {
+        return a * b
+    }
+    
+    func multiply(lhs a: Double, rhs b: Double) -> Double {
+        return a * b
+    }
+    
+    func multiply(_ nums: [Int]) -> Int {
+        var res: Int = 1
+        for num in nums {
+            res *= num
+        }
+        return res
+    }
+    
+    func multiply(_ nums: [Double]) -> Double {
+        var res: Double = 1
+        for num in nums {
+            res *= num
+        }
+        return res
+    }
+    
+    func divide(lhs a: Int, rhs b: Int) -> Int? {
+        if (b == 0) {
+            return nil
+        }
+        return a / b
+    }
+    
+    func divide(lhs a: Double, rhs b: Double) -> Double? {
+        if (b == 0.0) {
+            return nil
+        }
+        return a / b
+    }
+    
+    func mathOp(lhs a: Int, rhs b: Int, op: (Int, Int) -> Int) -> Int {
+        return op(a, b)
+    }
+    
+    func mathOp(lhs a: Double, rhs b: Double, op: (Double, Double) -> Double) -> Double {
+        return op(a, b)
+    }
+    
+    func mathOp(lhs a: Int, rhs b: Double, op: (Int, Double) -> Double) -> Double {
+        return op(a, b)
+    }
+    
+    func mathOp(lhs a: Double, rhs b: Int, op: (Double, Int) -> Double) -> Double {
+        return op(a, b)
+    }
+    
+    func mathOp(args nums: [Int], beg b: Int, op: (Int, Int) -> Int) -> Int {
+        let res: Int = b
+        for num in nums {
+            op(res, num)
+        }
+        
+        return res
+    }
+    
+    func mathOp(args nums: [Double], beg b: Double, op: (Double, Double) -> Double) -> Double {
+        let res: Double = b
+        for num in nums {
+            op(res, num)
+        }
+        
+        return res
+    }
+    
+    func count(_ nums: [Any?]) -> Int {
+        return nums.count
+    }
+    
+    func avg(_ nums: [Int]) -> Int {
+        var sum: Int = 0
+        for num in nums {
+            sum += num
+        }
+        
+        return sum / nums.count
+    }
+    
+    func avg(_ nums: [Double]) -> Double {
+        if (nums.count == 0) {
+            return 0
+        }
+        var sum: Double = 0
+        for num in nums {
+            sum += num
+        }
+        
+        return sum / Double(nums.count)
+    }
 }
 
+struct Tuple {
+    var length: Int
+    var data: [Int]
+    
+    init(length: Int) {
+        self.length = length
+        self.data = Array(repeating: 0, count: length)
+    }
+}
 //: Don't change the name of this object (`calc`); it's used in all the tests.
 let calc = Calculator()
 
@@ -47,7 +261,7 @@ calc.subtract(lhs: 2, rhs: 2) == 0
 calc.multiply(lhs: 2, rhs: 2) == 4
 calc.divide(lhs: 2, rhs: 2) == 1
 
-calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rjs) + (lhs * rhs) }) == 35
+calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rhs) + (lhs * rhs) }) == 35
     // This style is one way of writing an anonymous function
 calc.mathOp(lhs: 10, rhs: -5, op: { ($0 + $1) + ($0 - $1) }) == 20
     // This is the second, more terse, style; either works
@@ -55,6 +269,7 @@ calc.mathOp(lhs: 10, rhs: -5, op: { ($0 + $1) + ($0 - $1) }) == 20
 calc.add([1, 2, 3, 4, 5]) == 15
 calc.multiply([1, 2, 3, 4, 5]) == 120
 calc.count([1, 2, 3, 4, 5, 6, 7, 8]) == 8
+calc.count([1.1, 2.2, 3.3]) == 3
 calc.count([]) == 0
 calc.avg([2, 2, 2, 2, 2, 2]) == 2
 calc.avg([1, 2, 3, 4, 5]) == 3
